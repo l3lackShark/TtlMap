@@ -17,9 +17,10 @@ Adopted from: https://stackoverflow.com/a/25487392/452281
 package TtlMap
 
 import (
-	"maps"
 	"sync"
 	"time"
+
+	myMaps "github.com/l3lackShark/TtlMap/maps"
 )
 
 const version string = "1.5.1"
@@ -116,14 +117,16 @@ func (m *TtlMap[T]) Delete(k T) bool {
 
 func (m *TtlMap[T]) Clear() {
 	m.l.Lock()
-	clear(m.m)
+	for key := range m.m {
+		delete(m.m, key)
+	}
 	m.l.Unlock()
 }
 
 func (m *TtlMap[T]) All() map[T]*item {
 	m.l.Lock()
 	dst := make(map[T]*item, len(m.m))
-	maps.Copy(dst, m.m)
+	myMaps.Copy(dst, m.m)
 	m.l.Unlock()
 	return dst
 }

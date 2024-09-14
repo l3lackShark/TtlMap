@@ -1,9 +1,10 @@
 package TtlMap
 
 import (
-	"maps"
 	"testing"
 	"time"
+
+	myMaps "github.com/l3lackShark/TtlMap/maps"
 )
 
 func TestAllItemsExpired(t *testing.T) {
@@ -176,7 +177,7 @@ func TestAllFunc(t *testing.T) {
 	tm.Put("uint64", u)
 
 	allItems := tm.All()
-	if !maps.Equal(allItems, tm.m) {
+	if !myMaps.Equal(allItems, tm.m) {
 		t.Fatalf("allItems and tm.m are not equal\n")
 	}
 }
